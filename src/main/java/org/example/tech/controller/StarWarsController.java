@@ -1,9 +1,9 @@
-package org.example.controller;
+package org.example.tech.controller;
 
-import org.example.model.People;
-import org.example.model.Starship;
-import org.example.service.SWAPIService;
-import org.example.service.SortingService;
+import org.example.tech.model.People;
+import org.example.tech.model.Starship;
+import org.example.tech.service.SWAPIService;
+import org.example.tech.service.SortingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

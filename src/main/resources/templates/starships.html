@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Star Wars Starships</title>
+</head>
+<body>
+<h1>Star Wars Starships</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Model</th>
+        <th>Manufacturer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="starship : ${starships}">
+        <td th:text="${starship.name}"></td>
+        <td th:text="${starship.model}"></td>
+        <td th:text="${starship.manufacturer}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

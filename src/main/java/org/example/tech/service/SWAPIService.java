@@ -1,6 +1,7 @@
-package org.example.service;
-import org.example.model.People;
-import org.example.model.Starship;
+package org.example.tech.service;
+
+import org.example.tech.model.People;
+import org.example.tech.model.Starship;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
