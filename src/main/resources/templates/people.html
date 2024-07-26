@@ -3,30 +3,61 @@
 <head>
     <title>Star Wars People</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Press Start 2P', cursive;
+            background-image: url('https://starwarsblog.starwars.com/wp-content/uploads/2015/11/star-wars-background.jpg');
+            background-size: cover;
+            color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
         }
         h1 {
-            color: #333;
+            color: #ffe81f;
+            text-align: center;
+            text-shadow: 2px 2px 4px #000000;
         }
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.7);
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
+            border: 1px solid #444;
+            padding: 12px;
             text-align: left;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #333;
+            color: #ffe81f;
+        }
+        tr:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.1);
         }
         form {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        label, select, button {
+        label, select {
             margin-right: 10px;
+            padding: 8px;
+            font-size: 16px;
+            color: #000; /* Black color */
+        }
+        button {
+            background-color: #ffe81f; /* Yellow color */
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+        }
+        button:hover {
+            background-color: #ffcc00; /* Darker yellow color */
         }
     </style>
 </head>
