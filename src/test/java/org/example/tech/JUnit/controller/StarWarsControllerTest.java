@@ -4,7 +4,6 @@ import org.example.tech.controller.StarWarsController;
 import org.example.tech.model.People;
 import org.example.tech.model.Starship;
 import org.example.tech.service.SWAPIService;
-import org.example.tech.service.SortingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -27,11 +26,6 @@ public class StarWarsControllerTest {
     @MockBean
     private SWAPIService swapiService;
 
-    @MockBean
-    private SortingService<People> peopleSortingService;
-
-    @MockBean
-    private SortingService<Starship> starshipSortingService;
 
     @Test
     void testGetPeople() throws Exception {

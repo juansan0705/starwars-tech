@@ -2,8 +2,6 @@ package org.example.tech.IT.controller;
 
 import org.example.tech.model.People;
 import org.example.tech.model.Starship;
-import org.example.tech.service.SWAPIService;
-import org.example.tech.service.SortingService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,15 +23,6 @@ public class StarWarsControllerIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
-    @Autowired
-    private SWAPIService swapiService;
-
-    @Autowired
-    private SortingService<People> peopleSortingService;
-
-    @Autowired
-    private SortingService<Starship> starshipSortingService;
 
     @Test
     public void getPeople() {

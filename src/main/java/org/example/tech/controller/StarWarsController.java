@@ -3,7 +3,6 @@ package org.example.tech.controller;
 import org.example.tech.model.People;
 import org.example.tech.model.Starship;
 import org.example.tech.service.SWAPIService;
-import org.example.tech.service.SortingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +16,10 @@ import java.util.List;
 public class StarWarsController {
 
     private final SWAPIService swapiService;
-    private final SortingService<People> peopleSortingService;
-    private final SortingService<Starship> starshipSortingService;
 
     @Autowired
-    public StarWarsController(SWAPIService swapiService, SortingService<People> peopleSortingService, SortingService<Starship> starshipSortingService) {
+    public StarWarsController(SWAPIService swapiService) {
         this.swapiService = swapiService;
-        this.peopleSortingService = peopleSortingService;
-        this.starshipSortingService = starshipSortingService;
     }
 
     @GetMapping("/people")
