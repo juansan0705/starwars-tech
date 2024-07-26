@@ -15,11 +15,10 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class StarWarsControllerIntegrationTest {
 
-    @LocalServerPort
-    private int port;
+    private static final int PORT = 6969;
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -27,7 +26,7 @@ public class StarWarsControllerIntegrationTest {
     @Test
     public void getPeople() {
         ResponseEntity<List<People>> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/star-wars/people",
+                "http://localhost:" + PORT + "/api/v1/star-wars/people",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<People>>() {}
@@ -39,7 +38,7 @@ public class StarWarsControllerIntegrationTest {
     @Test
     public void getStarships() {
         ResponseEntity<List<Starship>> response = restTemplate.exchange(
-                "http://localhost:" + port + "/api/v1/star-wars/starships",
+                "http://localhost:" + PORT + "/api/v1/star-wars/starships",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<Starship>>() {}

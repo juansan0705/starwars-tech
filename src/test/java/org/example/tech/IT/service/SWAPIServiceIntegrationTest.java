@@ -6,33 +6,44 @@ import org.example.tech.service.SWAPIService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@Transactional
-@DirtiesContext
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 class SWAPIServiceIntegrationTest {
 
+    private static final int PORT = 6969;
+
     @Autowired
-    private SWAPIService swapiService;
+    private TestRestTemplate restTemplate;
 
     @Test
     void testGetAllPeople() {
-        List<People> people = swapiService.getAllPeople("name", true);
-        assertNotNull(people);
-        assertTrue(people.size() > 0);
+        ResponseEntity<List<People>> response = restTemplate.exchange(
+                "http://localhost:" + PORT + "/api/v1/star-wars/people?sortBy=name&ascending=true",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<People>>() {}
+        );
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).isNotEmpty();
     }
 
     @Test
     void testGetAllStarships() {
-        List<Starship> starships = swapiService.getAllStarships("name", true);
-        assertNotNull(starships);
-        assertTrue(starships.size() > 0);
+        ResponseEntity<List<Starship>> response = restTemplate.exchange(
+                "http://localhost:" + PORT + "/api/v1/star-wars/starships?sortBy=name&ascending=true",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<Starship>>() {}
+        );
+        assertThat(response.getStatusCode().is2xxSuccessful()).isTrue();
+        assertThat(response.getBody()).isNotEmpty();
     }
 }
