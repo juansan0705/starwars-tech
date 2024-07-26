@@ -18,12 +18,12 @@ public class ViewController {
     @GetMapping("/people")
     public String viewPeople(Model model) {
         model.addAttribute("people", swapiService.getAllPeople());
-        return "people-view";
+        return "people";
     }
 
     @GetMapping("/starships")
     public String viewStarships(Model model) {
         model.addAttribute("starships", swapiService.getAllStarships());
-        return "starships-view";
+        return "starships";
     }
 }

@@ -1,6 +1,5 @@
 package org.example.tech.IT.view;
 
-
 import org.example.tech.model.People;
 import org.example.tech.model.Starship;
 import org.example.tech.service.SWAPIService;
@@ -32,7 +31,7 @@ class ViewControllerIntegrationTest {
 
         mockMvc.perform(get("/people"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("people-view"))
+                .andExpect(view().name("people"))
                 .andExpect(model().attributeExists("people"));
     }
 
@@ -42,7 +41,7 @@ class ViewControllerIntegrationTest {
 
         mockMvc.perform(get("/starships"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("starships-view"))
+                .andExpect(view().name("starships"))
                 .andExpect(model().attributeExists("starships"));
     }
 }

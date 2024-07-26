@@ -35,7 +35,7 @@ class ViewControllerTest {
         when(swapiService.getAllPeople()).thenReturn(Collections.emptyList());
 
         String viewName = viewController.viewPeople(model);
-        assertEquals("people-view", viewName);
+        assertEquals("people", viewName);
         verify(model, times(1)).addAttribute(eq("people"), any());
     }
 
@@ -44,7 +44,7 @@ class ViewControllerTest {
         when(swapiService.getAllStarships()).thenReturn(Collections.emptyList());
 
         String viewName = viewController.viewStarships(model);
-        assertEquals("starships-view", viewName);
+        assertEquals("starships", viewName);
         verify(model, times(1)).addAttribute(eq("starships"), any());
     }
 }
