@@ -13,11 +13,13 @@ public class People {
     private String name;
     private String birthYear;
     private String gender;
+    private String created;
 
     @JsonCreator
-    public People(@JsonProperty("name") String name, @JsonProperty("birth_year") String birthYear, @JsonProperty("gender") String gender) {
+    public People(@JsonProperty("name") String name, @JsonProperty("birth_year") String birthYear, @JsonProperty("gender") String gender, @JsonProperty("created") String created) {
         this.name = name;
         this.birthYear = birthYear;
         this.gender = gender;
+        this.created = created;
     }
 }

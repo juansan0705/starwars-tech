@@ -27,9 +27,9 @@ class ViewControllerIntegrationTest {
 
     @Test
     void testViewPeople() throws Exception {
-        when(swapiService.getAllPeople()).thenReturn(Collections.singletonList(new People("Luke Skywalker", "19BBY", "male")));
+        when(swapiService.getAllPeople("name", true)).thenReturn(Collections.singletonList(new People("Luke Skywalker", "19BBY", "male", "2023-10-01T00:00:00Z")));
 
-        mockMvc.perform(get("/people"))
+        mockMvc.perform(get("/people?sortField=name&sortOrder=asc"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("people"))
                 .andExpect(model().attributeExists("people"));
@@ -37,9 +37,9 @@ class ViewControllerIntegrationTest {
 
     @Test
     void testViewStarships() throws Exception {
-        when(swapiService.getAllStarships()).thenReturn(Collections.singletonList(new Starship("X-wing", "T-65 X-wing", "Incom Corporation")));
+        when(swapiService.getAllStarships("name", true)).thenReturn(Collections.singletonList(new Starship("X-wing", "T-65 X-wing", "Incom Corporation", "2023-10-01T00:00:00Z")));
 
-        mockMvc.perform(get("/starships"))
+        mockMvc.perform(get("/starships?sortField=name&sortOrder=asc"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("starships"))
                 .andExpect(model().attributeExists("starships"));

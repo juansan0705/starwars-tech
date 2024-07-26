@@ -32,18 +32,18 @@ class ViewControllerTest {
 
     @Test
     void testViewPeople() {
-        when(swapiService.getAllPeople()).thenReturn(Collections.emptyList());
+        when(swapiService.getAllPeople(anyString(), anyBoolean())).thenReturn(Collections.emptyList());
 
-        String viewName = viewController.viewPeople(model);
+        String viewName = viewController.viewPeople(model, "name", "asc");
         assertEquals("people", viewName);
         verify(model, times(1)).addAttribute(eq("people"), any());
     }
 
     @Test
     void testViewStarships() {
-        when(swapiService.getAllStarships()).thenReturn(Collections.emptyList());
+        when(swapiService.getAllStarships(anyString(), anyBoolean())).thenReturn(Collections.emptyList());
 
-        String viewName = viewController.viewStarships(model);
+        String viewName = viewController.viewStarships(model, "name", "asc");
         assertEquals("starships", viewName);
         verify(model, times(1)).addAttribute(eq("starships"), any());
     }

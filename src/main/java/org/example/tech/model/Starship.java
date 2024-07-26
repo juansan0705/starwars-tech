@@ -13,11 +13,13 @@ public class Starship {
     private String name;
     private String model;
     private String manufacturer;
+    private String created;
 
     @JsonCreator
-    public Starship(@JsonProperty("name") String name, @JsonProperty("model") String model, @JsonProperty("manufacturer") String manufacturer) {
+    public Starship(@JsonProperty("name") String name, @JsonProperty("model") String model, @JsonProperty("manufacturer") String manufacturer, @JsonProperty("created") String created) {
         this.name = name;
         this.model = model;
         this.manufacturer = manufacturer;
+        this.created = created;
     }
 }

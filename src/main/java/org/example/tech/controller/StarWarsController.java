@@ -29,23 +29,11 @@ public class StarWarsController {
 
     @GetMapping("/people")
     public List<People> getPeople(@RequestParam(required = false) String sortBy, @RequestParam(required = false) boolean ascending) {
-        List<People> people = swapiService.getAllPeople();
-        if ("name".equalsIgnoreCase(sortBy)) {
-            return peopleSortingService.sortByName(people, ascending);
-        } else if ("created".equalsIgnoreCase(sortBy)) {
-            return peopleSortingService.sortByCreated(people, ascending);
-        }
-        return people;
+        return swapiService.getAllPeople(sortBy, ascending);
     }
 
     @GetMapping("/starships")
     public List<Starship> getStarships(@RequestParam(required = false) String sortBy, @RequestParam(required = false) boolean ascending) {
-        List<Starship> starships = swapiService.getAllStarships();
-        if ("name".equalsIgnoreCase(sortBy)) {
-            return starshipSortingService.sortByName(starships, ascending);
-        } else if ("created".equalsIgnoreCase(sortBy)) {
-            return starshipSortingService.sortByCreated(starships, ascending);
-        }
-        return starships;
+        return swapiService.getAllStarships(sortBy, ascending);
     }
 }

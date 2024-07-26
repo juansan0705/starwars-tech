@@ -24,14 +24,14 @@ class SWAPIServiceIntegrationTest {
 
     @Test
     void testGetAllPeople() {
-        List<People> people = swapiService.getAllPeople();
+        List<People> people = swapiService.getAllPeople("name", true);
         assertNotNull(people);
         assertTrue(people.size() > 0);
     }
 
     @Test
     void testGetAllStarships() {
-        List<Starship> starships = swapiService.getAllStarships();
+        List<Starship> starships = swapiService.getAllStarships("name", true);
         assertNotNull(starships);
         assertTrue(starships.size() > 0);
     }
