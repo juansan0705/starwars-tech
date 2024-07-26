@@ -4,7 +4,8 @@ import org.example.tech.model.People;
 import org.example.tech.model.response.PeopleResponse;
 import org.example.tech.model.Starship;
 import org.example.tech.model.response.StarshipResponse;
-import org.example.tech.sorting.util.SortSpecification;
+import org.example.tech.sorting.CreatedSortSpecification;
+import org.example.tech.sorting.NameSortSpecification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -14,23 +15,27 @@ import java.util.List;
 @Service
 public class SWAPIService {
     private final RestTemplate restTemplate;
-    private final List<SortSpecification<People>> sortSpecifications;
-    private final List<SortSpecification<Starship>> starshipSortSpecifications;
+    private final NameSortSpecification<People> peopleNameSortSpecification;
+    private final CreatedSortSpecification<People> peopleCreatedSortSpecification;
+    private final NameSortSpecification<Starship> starshipNameSortSpecification;
+    private final CreatedSortSpecification<Starship> starshipCreatedSortSpecification;
 
-    public SWAPIService(RestTemplate restTemplate, List<SortSpecification<People>> sortSpecifications, List<SortSpecification<Starship>> starshipSortSpecifications) {
+    public SWAPIService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-        this.sortSpecifications = sortSpecifications != null ? sortSpecifications : Collections.emptyList();
-        this.starshipSortSpecifications = starshipSortSpecifications != null ? starshipSortSpecifications : Collections.emptyList();
+        this.peopleNameSortSpecification = new NameSortSpecification<>();
+        this.peopleCreatedSortSpecification = new CreatedSortSpecification<>();
+        this.starshipNameSortSpecification = new NameSortSpecification<>();
+        this.starshipCreatedSortSpecification = new CreatedSortSpecification<>();
     }
 
     public List<People> getAllPeople(String sortField, boolean ascending) {
         String url = "https://swapi.dev/api/people/";
         PeopleResponse response = restTemplate.getForObject(url, PeopleResponse.class);
         List<People> people = response != null ? response.getResults() : Collections.emptyList();
-        for (SortSpecification<People> spec : sortSpecifications) {
-            if (spec.getClass().getSimpleName().toLowerCase().contains(sortField.toLowerCase())) {
-                return spec.sort(people, ascending);
-            }
+        if ("name".equalsIgnoreCase(sortField)) {
+            return peopleNameSortSpecification.sort(people, ascending);
+        } else if ("created".equalsIgnoreCase(sortField)) {
+            return peopleCreatedSortSpecification.sort(people, ascending);
         }
         return people;
     }
@@ -39,10 +44,10 @@ public class SWAPIService {
         String url = "https://swapi.dev/api/starships/";
         StarshipResponse response = restTemplate.getForObject(url, StarshipResponse.class);
         List<Starship> starships = response != null ? response.getResults() : Collections.emptyList();
-        for (SortSpecification<Starship> spec : starshipSortSpecifications) {
-            if (spec.getClass().getSimpleName().toLowerCase().contains(sortField.toLowerCase())) {
-                return spec.sort(starships, ascending);
-            }
+        if ("name".equalsIgnoreCase(sortField)) {
+            return starshipNameSortSpecification.sort(starships, ascending);
+        } else if ("created".equalsIgnoreCase(sortField)) {
+            return starshipCreatedSortSpecification.sort(starships, ascending);
         }
         return starships;
     }

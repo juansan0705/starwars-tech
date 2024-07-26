@@ -5,9 +5,6 @@ import org.example.tech.model.response.PeopleResponse;
 import org.example.tech.model.Starship;
 import org.example.tech.model.response.StarshipResponse;
 import org.example.tech.service.SWAPIService;
-import org.example.tech.sorting.CreatedSortSpecification;
-import org.example.tech.sorting.NameSortSpecification;
-import org.example.tech.sorting.util.SortSpecification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -29,16 +26,10 @@ class SWAPIServiceTest {
     @Mock
     private RestTemplate restTemplate;
 
-    @Mock
-    private SortSpecification<People> peopleSortSpecification;
-
-    @Mock
-    private SortSpecification<Starship> starshipSortSpecification;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        swapiService = new SWAPIService(restTemplate, List.of(new NameSortSpecification<>(), new CreatedSortSpecification<>()), List.of(new NameSortSpecification<>(), new CreatedSortSpecification<>()));
+        swapiService = new SWAPIService(restTemplate);
     }
 
     @Test
