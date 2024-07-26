@@ -16,12 +16,8 @@
    ```sh
    docker run -p 6969:6969 star-wars-app
     ```
-4. Run the application:
-   ```sh
-   mvn spring-boot:run
-    ```
 
-5. Access the application.
+4. Access the application.
    ```sh
    Posible View endpoints:
    http://localhost:6969/people
