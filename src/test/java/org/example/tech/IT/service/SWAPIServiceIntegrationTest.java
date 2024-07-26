@@ -2,7 +2,6 @@ package org.example.tech.IT.service;
 
 import org.example.tech.model.People;
 import org.example.tech.model.Starship;
-import org.example.tech.service.SWAPIService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

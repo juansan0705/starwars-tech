@@ -4,7 +4,7 @@
 
 1. Build the application:
    ```sh
-   mvn clean package
+   ./gradlew build
     ```
 
 2. Build the Docker image:
