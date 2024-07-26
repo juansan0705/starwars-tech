@@ -4,7 +4,7 @@ import org.example.tech.model.People;
 import org.example.tech.model.response.PeopleResponse;
 import org.example.tech.model.Starship;
 import org.example.tech.model.response.StarshipResponse;
-import org.example.tech.service.SWAPIService;
+import org.example.tech.service.SWAPIServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -18,10 +18,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-class SWAPIServiceTest {
+class SWAPIServiceImplTest {
 
     @InjectMocks
-    private SWAPIService swapiService;
+    private SWAPIServiceImpl swapiService;
 
     @Mock
     private RestTemplate restTemplate;
@@ -29,7 +29,7 @@ class SWAPIServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        swapiService = new SWAPIService(restTemplate);
+        swapiService = new SWAPIServiceImpl(restTemplate);
     }
 
     @Test
