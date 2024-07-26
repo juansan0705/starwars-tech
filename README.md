@@ -12,7 +12,7 @@
    docker build -t star-wars-app .
     ```
 
-3. Run the Docker container:
+3. Run the Docker container and the application:
    ```sh
    docker run -p 6969:6969 star-wars-app
     ```

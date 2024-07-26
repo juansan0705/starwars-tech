@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.0'
     id 'java'
+    id 'com.bmuschko.docker-remote-api' version '9.3.2'
 }
 
 group = 'org.example'
@@ -33,4 +34,29 @@ tasks.withType(JavaCompile) {
 
 test {
     useJUnitPlatform()
+}
+
+bootJar {
+    archiveFileName = 'app.jar'
+}
+
+//you need to set the environment variables DOCKER_USERNAME, DOCKER_PASSWORD, DOCKER_EMAIL in your system
+docker {
+    url = 'unix:///var/run/docker.sock'
+    registryCredentials {
+        username = System.getenv('DOCKER_USERNAME')
+        password = System.getenv('DOCKER_PASSWORD')
+        email = System.getenv('DOCKER_EMAIL')
+    }
+}
+
+task buildDockerImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage) {
+    inputDir = project.file('.')
+    images.add("${project.group}/${project.name}:${project.version}")
+    dependsOn bootJar
+}
+
+task pushDockerImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage) {
+    images.add("${project.group}/${project.name}:${project.version}")
+    dependsOn buildDockerImage
 }
