@@ -16,39 +16,34 @@ This project offers two build options: Maven and Gradle. It is a web application
    docker build -t star-wars-app .
     ```
 
-3. Apply the Kubernetes configuration (You have to have Minikube installed):
+3. Apply the Kubernetes configuration (You must install Minikube for this step):
 
    1. Start Minikube:
       ```sh
       minikube start
       ```
 
-   2. Build the Docker image:
+   2. Load the Docker image into Minikube:
       ```sh
-      docker build -t star-wars-app:latest .
+      minikube image load star-wars-app
       ```
 
-   3. Load the Docker image into Minikube:
-      ```sh
-      minikube image load star-wars-app:latest
-      ```
-
-   4. Apply the Kubernetes deployment configuration:
+   3. Apply the Kubernetes deployment configuration:
       ```sh
       kubectl apply -f k8s/deployment.yaml
       ```
 
-   5. Apply the Kubernetes service configuration:
+   4. Apply the Kubernetes service configuration:
       ```sh
       kubectl apply -f k8s/service.yaml
       ```
 
-   6. Access the application:
+   5. Access the application:
       ```sh
       minikube service star-wars-service
       ```
 
-4. Run the Docker container and the application (if kubernetes not working):
+4. Run the Docker container and the application (If kubernetes is not working):
    ```sh
    docker run -p 6969:6969 star-wars-app
     ```
