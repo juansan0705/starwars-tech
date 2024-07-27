@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 class SWAPIServiceImplTest {
@@ -52,5 +53,16 @@ class SWAPIServiceImplTest {
         List<Starship> starships = swapiService.getAllStarships("name", true);
         assertEquals(1, starships.size());
         assertEquals("X-wing", starships.get(0).getName());
+    }
+
+    @Test
+    void testGetAllPeopleFailure() {
+        when(restTemplate.getForObject("https://swapi.dev/api/people/", PeopleResponse.class)).thenThrow(new IllegalArgumentException("Invalid request"));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            swapiService.getAllPeople("name", true);
+        });
+
+        assertEquals("Invalid request", exception.getMessage());
     }
 }

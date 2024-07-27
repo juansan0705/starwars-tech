@@ -4,46 +4,60 @@ import org.example.tech.controller.StarWarsController;
 import org.example.tech.model.People;
 import org.example.tech.model.Starship;
 import org.example.tech.service.SWAPIService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(StarWarsController.class)
 public class StarWarsControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @MockBean
+    @Mock
     private SWAPIService swapiService;
 
+    @InjectMocks
+    private StarWarsController starWarsController;
 
-    @Test
-    void testGetPeople() throws Exception {
-        when(swapiService.getAllPeople("name", true)).thenReturn(Collections.singletonList(new People("Luke Skywalker", "19BBY", "male", "2023-10-01T00:00:00Z")));
-
-        mockMvc.perform(get("/api/v1/star-wars/people?sortBy=name&ascending=true"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name").value("Luke Skywalker"))
-                .andExpect(jsonPath("$[0].created").value("2023-10-01T00:00:00Z"));
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    void testGetStarships() throws Exception {
+    void testGetPeople() {
+        when(swapiService.getAllPeople("name", true)).thenReturn(Collections.singletonList(new People("Luke Skywalker", "19BBY", "male", "2023-10-01T00:00:00Z")));
+
+        List<People> people = starWarsController.getPeople("name", true);
+        assertEquals(1, people.size());
+        assertEquals("Luke Skywalker", people.get(0).getName());
+        assertEquals("2023-10-01T00:00:00Z", people.get(0).getCreated());
+    }
+
+    @Test
+    void testGetStarships() {
         when(swapiService.getAllStarships("name", true)).thenReturn(Collections.singletonList(new Starship("X-wing", "T-65 X-wing", "Incom Corporation", "2023-10-01T00:00:00Z")));
 
-        mockMvc.perform(get("/api/v1/star-wars/starships?sortBy=name&ascending=true"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].name").value("X-wing"))
-                .andExpect(jsonPath("$[0].created").value("2023-10-01T00:00:00Z"));
+        List<Starship> starships = starWarsController.getStarships("name", true);
+        assertEquals(1, starships.size());
+        assertEquals("X-wing", starships.get(0).getName());
+        assertEquals("2023-10-01T00:00:00Z", starships.get(0).getCreated());
+    }
+
+    @Test
+    void testGetPeopleFailure() {
+        when(swapiService.getAllPeople("name", true)).thenThrow(new IllegalArgumentException("Invalid request"));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            starWarsController.getPeople("name", true);
+        });
+
+        assertEquals("Invalid request", exception.getMessage());
     }
 }

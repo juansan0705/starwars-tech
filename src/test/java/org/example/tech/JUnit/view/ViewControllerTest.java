@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 class ViewControllerTest {
@@ -46,5 +47,16 @@ class ViewControllerTest {
         String viewName = viewController.viewStarships(model, "name", "asc");
         assertEquals("starships", viewName);
         verify(model, times(1)).addAttribute(eq("starships"), any());
+    }
+
+    @Test
+    void testViewPeopleFailure() {
+        when(swapiService.getAllPeople(anyString(), anyBoolean())).thenThrow(new IllegalArgumentException("Invalid request"));
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            viewController.viewPeople(model, "name", "asc");
+        });
+
+        assertEquals("Invalid request", exception.getMessage());
     }
 }
